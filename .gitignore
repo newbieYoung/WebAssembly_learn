@@ -1,3 +1,4 @@
 assemblyscript/*
 build/*
 node_modules/*
+dist/*
