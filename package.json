@@ -18,8 +18,5 @@
   "bugs": {
     "url": "https://github.com/newbieYoung/WebAssembly_learn/issues"
   },
-  "homepage": "https://github.com/newbieYoung/WebAssembly_learn#readme",
-  "devDependencies": {
-    "webpack": "^4.41.2"
-  }
+  "homepage": "https://github.com/newbieYoung/WebAssembly_learn#readme"
 }
