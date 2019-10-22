@@ -1,7 +1,6 @@
 const config = {
   entry: {
     index: './browser/index.js',
-    simplecv: './browser/simplecv.js',
   },
   output: {
     filename: '[name].js',
@@ -9,7 +8,7 @@ const config = {
   },
   module: {
     rules: [{
-      test: /\.ts$/, // assemblyscript Source File
+      test: /\.asc$/, // assemblyscript Source File
       exclude: "/node_modules/",
       loader: "assemblyscript-live-loader"
     }]
