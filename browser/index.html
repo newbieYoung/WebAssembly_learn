@@ -28,6 +28,7 @@
         var mem = new Float64Array(exports.memory.buffer);
         console.log(exports);
         console.log(exports.add(1, 2));
+        console.log(exports.minus(2, 1));
       }).catch(err => {
         alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
         console.log(err.stack);
