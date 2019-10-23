@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>浏览器 index.ts 测试</title>
+  <title>浏览器 simplecv.ts 测试</title>
 </head>
 
 <body>
@@ -28,19 +28,7 @@
         var exports = module.instance.exports;
         var mem = new Float64Array(exports.memory.buffer);
         console.log(exports);
-        console.log(exports.add(1, 2));
-        console.log(exports.minus(2, 1));
-
-        let p0 = exports.hello();
-        console.log(p0);
-        console.log(__getString(exports.memory, p0));
-
-        let name = 'tencent';
-        let ptr = __allocString(exports, name)
-        let p1 = exports.hi(ptr);
-        console.log(p1);
-        console.log(__getString(exports.memory, p1));
-
+        console.log(exports.convolution(1, 2));
       }).catch(err => {
         alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
         console.log(err.stack);
