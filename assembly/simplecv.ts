@@ -11,7 +11,7 @@ class CvMat {
   len: i8
   data: Array<i8>
 
-  constructor(data: Array<i8>, len: i8, rows: i32, cols: i32) {
+  constructor(data: Array<i8>, rows: i32, cols: i32, len: i8) {
     len = len === null ? 4 : len
     rows = rows === null ? 0 : rows
     cols = cols === null ? 0 : cols
@@ -35,7 +35,19 @@ class CvMat {
   }
 }
 
-export function convolution(): CvMat {
-  let cvMat = new CvMat([], 0, 0, 0)
-  return cvMat
+/**
+ * 卷积
+ * @param mat 矩阵
+ * @param ker 卷积
+ */
+export function convolution(
+  mat: Array<i8>,
+  matRows: i32,
+  matCols: i32,
+  ker: Array<i8>,
+  kerRows: i32,
+  kerCols: i32
+): i8[] {
+  let matMat = new CvMat(mat, matRows, matCols)
+  let kerMat = new CvMat(ker, kerRows, kerCols)
 }
