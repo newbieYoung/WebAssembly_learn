@@ -31,7 +31,8 @@
           abort: function () {
             throw Error("abort called");
           }
-        }
+        },
+        Date: Date
       }))
       .then(module => {
         var exports = module.instance.exports;
@@ -52,6 +53,11 @@
         let p1 = exports.hi(ptr);
         console.log(p1);
         console.log(__getString(exports.memory, p1));
+
+        /**
+         * Date 对象目前需要先从外部导入
+         */
+        console.log(exports.dateNow());
 
         /**
          * 计算斐波那契数列时间消耗对比
