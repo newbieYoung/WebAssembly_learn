@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <script src="../lib/tool.js"></script>
   <script>
     //计算斐波那契数列
     function fib(n) {
@@ -19,70 +18,7 @@
       return fib(n - 2) + fib(n - 1)
     }
   </script>
-  <script>
-    "use strict";
-    fetch("../build/optimized.wasm")
-      .then(response => response.arrayBuffer())
-      .then(buffer => WebAssembly.instantiate(buffer, {
-        env: {
-          memory: new WebAssembly.Memory({
-            initial: 1
-          }),
-          abort: function () {
-            throw Error("abort called");
-          }
-        },
-        Date: Date
-      }))
-      .then(module => {
-        var exports = module.instance.exports;
-        var mem = new Float64Array(exports.memory.buffer);
-
-        //简单运算
-        console.log(exports);
-        console.log(exports.add(1, 2));
-        console.log(exports.minus(2, 1));
-
-        //字符串读取和传参
-        let p0 = exports.hello();
-        console.log(p0);
-        console.log(__getString(exports.memory, p0));
-
-        let name = 'tencent';
-        let ptr = __allocString(exports, name)
-        let p1 = exports.hi(ptr);
-        console.log(p1);
-        console.log(__getString(exports.memory, p1));
-
-        /**
-         * Date 对象目前需要先从外部导入
-         */
-        console.log(exports.dateNow());
-
-        // Math 对象使用
-        console.log(exports.random());
-
-        /**
-         * 计算斐波那契数列时间消耗对比
-         * assemblyscript 1600
-         * javascript 2600
-         * emscripten 1000
-         */
-        let a0 = window.performance.now();
-        exports.fib(42)
-        let a1 = window.performance.now();
-        console.log('assemblyscript ' + (a1 - a0) + ' ms');
-
-        let j0 = window.performance.now();
-        fib(42)
-        let j1 = window.performance.now();
-        console.log('javascript ' + (j1 - j0) + ' ms');
-
-      }).catch(err => {
-        alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
-        console.log(err.stack);
-      });
-  </script>
+  <script src="../dist/index.js"></script>
 </body>
 
 </html>
