@@ -23,3 +23,15 @@ export function fib(n: i32): i32 {
   }
   return fib(n - 2) + fib(n - 1)
 }
+
+//斐波那契数列 非递归实现
+export function fib2(n: i32): i32 {
+  var a = 0,
+    b = 1
+  for (let i = 0; i < n; i++) {
+    let t = a + b
+    a = b
+    b = t
+  }
+  return b
+}
