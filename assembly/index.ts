@@ -1,4 +1,5 @@
 // The entry file of your WebAssembly module.
+// javascript 并不支持 64位 数据类型，因此在 assemblyscript 中使用 64 位数据类型并没有任何问题，但是在 javascript 中调用时则会报错。
 
 export function add(a: i32, b: i32): i32 {
   return a + b
