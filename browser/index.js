@@ -6,7 +6,7 @@ console.log(loader);
 let myImport = {
   env: {
     memory: new WebAssembly.Memory({
-      initial: 1
+      initial: 256
     }),
     abort: function () {
       throw Error("abort called");
@@ -23,7 +23,6 @@ fetch("../build/optimized.wasm")
   .then(module => {
     var myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
     var exports = module.instance.exports;
-    var mem = new Float64Array(exports.memory.buffer);
 
     console.log(module);
     console.log(exports);
