@@ -47,7 +47,7 @@ export function convolution(
   ker: Array<i8>,
   kerRows: i32,
   kerCols: i32
-): i8[] {
-  let matMat = new CvMat(mat, matRows, matCols)
-  let kerMat = new CvMat(ker, kerRows, kerCols)
+): void {
+  let matMat = new CvMat(mat, matRows, matCols, 4)
+  let kerMat = new CvMat(ker, kerRows, kerCols, 4)
 }

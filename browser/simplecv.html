@@ -11,52 +11,7 @@
 <body>
   <img id="mat" src="../images/img-1.png" alt="">
   <img id="ker" src="../images/kernel.png" alt="">
-  <script src="../lib/tool.js"></script>
-  <script>
-    window.onload = function () {
-      fetch("../build/optimized.wasm")
-        .then(response => response.arrayBuffer())
-        .then(buffer => WebAssembly.instantiate(buffer, {
-          env: {
-            memory: new WebAssembly.Memory({
-              initial: 1
-            }),
-            abort: function () {
-              throw Error("abort called");
-            }
-          }
-        }))
-        .then(module => {
-          var exports = module.instance.exports;
-          var mem = new Float64Array(exports.memory.buffer);
-          console.log(exports);
-
-          var $mat = getCvMat('mat');
-          var $ker = getCvMat('ker');
-
-          var $matCan = document.createE
-        }).catch(err => {
-          alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
-          console.log(err.stack);
-        });
-
-      //解析图片数据至 CvMat 格式
-      function getCvMat(imageId) {
-        var $img = document.querySelector('#' + imageId);
-        var width = $img.width;
-        var height = $img.height;
-
-        var $canvas = document.createElement('canvas');
-        $canvas.width = width;
-        $canvas.height = height
-        var ctx = $canvas.getContext('2d');
-        ctx.drawImage($img, 0, 0, width, height);
-
-        var data = ctx.getImageData(0, 0, width, height);
-        console.log(data);
-      }
-    }
-  </script>
+  <script src="../dist/simplecv.js"></script>
 </body>
 
 </html>

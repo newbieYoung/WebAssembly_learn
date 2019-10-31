@@ -1,6 +1,7 @@
 module.exports = {
   entry: {
-    index: './browser/index.js'
+    index: './browser/index.js',
+    simplecv: './browser/simplecv.js'
   },
   output: {
     filename: '[name].js',
