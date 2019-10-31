@@ -2,6 +2,8 @@
 // javascript 并不支持 64位 数据类型，因此在 assemblyscript 中使用 64 位数据类型并没有任何问题，但是在 javascript 中调用时则会报错。
 NativeMath.seedRandom(Date.now())
 
+export const INT32ARRAY_ID = idof<Int32Array>()
+
 export function add(a: i32, b: i32): i32 {
   return a + b
 }
@@ -16,6 +18,23 @@ export function hello(): string {
 
 export function hi(name: string): string {
   return 'hi ' + name
+}
+
+/**
+ * 冒泡排序
+ * 从 JS 中传入的数组获取其长度时并不能直接使用 length 属性，而应该把数组长度一起当成参数传入。
+ */
+export function bubbleSort(arr: i32[], len: i32): i32[] {
+  for (let i = 0; i < len; i++) {
+    for (let j = i + 1; j < len; j++) {
+      if (arr[i] > arr[j]) {
+        let temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+      }
+    }
+  }
+  return arr
 }
 
 /**

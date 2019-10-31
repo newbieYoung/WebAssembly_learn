@@ -30,10 +30,12 @@ fetch("../build/optimized.wasm")
     console.log(myModule);
 
     //简单运算
+    console.log('---');
     console.log(exports.add(1, 2));
     console.log(exports.minus(2, 1));
 
     //字符串读取和传参
+    console.log('---');
     let p0 = exports.hello();
     console.log(p0);
     console.log(myModule.__getString(p0));
@@ -44,12 +46,21 @@ fetch("../build/optimized.wasm")
     console.log(p1);
     console.log(myModule.__getString(p1));
 
+    //数组读取和传参数
+    console.log('---');
+    let arr = [7, 2, 4, 3, 9];
+    let p2 = myModule.__retain(myModule.__allocArray(myModule.INT32ARRAY_ID, arr));
+    let p3 = exports.bubbleSort(p2, arr.length);
+    console.log(myModule.__getInt32Array(p3));
+
     /**
      * Date 对象目前需要先从外部导入
      */
+    console.log('---');
     console.log(exports.dateNow());
 
     // Math 对象使用
+    console.log('---');
     console.log(exports.random());
 
     /**
@@ -58,6 +69,7 @@ fetch("../build/optimized.wasm")
      * javascript 2600
      * emscripten 1000
      */
+    console.log('---');
     let a0 = window.performance.now();
     exports.fib(42)
     let a1 = window.performance.now();
