@@ -23,8 +23,14 @@ fetch("../build/optimized.wasm")
     let exports = module.instance.exports;
 
     let mat = getCvMat('mat');
-    let pMat = myModule.__retain(myModule.__allocArray(myModule.INT32ARRAY_ID, mat.data)); //数组转换为指针
+    let pMat = myModule.__retain(myModule.__allocArray(myModule.INT8ARRAY_ID, mat.data)); //数组转换为指针
     let ker = getCvMat('ker');
+    console.log(ker.data);
+    let kMat = myModule.__retain(myModule.__allocArray(myModule.INT8ARRAY_ID, ker.data));
+    let pConv = exports.convolution(pMat, mat.width, mat.height, kMat, ker.width, ker.height);
+    console.log(pConv);
+    console.log(myModule.__getInt32Array(pConv));
+
 
 
   }).catch(err => {
