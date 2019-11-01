@@ -19,11 +19,13 @@ fetch("../build/optimized.wasm")
   .then(response => response.arrayBuffer())
   .then(buffer => WebAssembly.instantiate(buffer, myImport))
   .then(module => {
-    var myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
-    var exports = module.instance.exports;
+    let myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
+    let exports = module.instance.exports;
 
-    var $mat = getCvMat('mat');
-    var $ker = getCvMat('ker');
+    let mat = getCvMat('mat');
+    let pMat = myModule.__retain(myModule.__allocArray(myModule.INT32ARRAY_ID, mat.data)); //数组转换为指针
+    let ker = getCvMat('ker');
+
 
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
@@ -32,16 +34,15 @@ fetch("../build/optimized.wasm")
 
 //解析图片数据至 CvMat 格式
 function getCvMat(imageId) {
-  var $img = document.querySelector('#' + imageId);
-  var width = $img.width;
-  var height = $img.height;
+  let $img = document.querySelector('#' + imageId);
+  let width = $img.width;
+  let height = $img.height;
 
-  var $canvas = document.createElement('canvas');
+  let $canvas = document.createElement('canvas');
   $canvas.width = width;
   $canvas.height = height
-  var ctx = $canvas.getContext('2d');
+  let ctx = $canvas.getContext('2d');
   ctx.drawImage($img, 0, 0, width, height);
 
-  var data = ctx.getImageData(0, 0, width, height);
-  console.log(data);
+  return ctx.getImageData(0, 0, width, height);
 }

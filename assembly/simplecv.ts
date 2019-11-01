@@ -1,3 +1,5 @@
+export const INT8ARRAY_ID = idof<Int8Array>()
+
 /**
  * RGBA颜色矩阵
  * rows 行

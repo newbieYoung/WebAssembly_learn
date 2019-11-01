@@ -28,8 +28,8 @@ fetch("../build/optimized.wasm")
   .then(response => response.arrayBuffer())
   .then(buffer => WebAssembly.instantiate(buffer, myImport))
   .then(module => {
-    var myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
-    var exports = module.instance.exports;
+    let myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
+    let exports = module.instance.exports;
 
     console.log(module);
     console.log(exports);
