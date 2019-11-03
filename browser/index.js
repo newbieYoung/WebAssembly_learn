@@ -59,6 +59,10 @@ fetch("../build/optimized.wasm")
     let p3 = exports.bubbleSort(p2, arr.length);
     console.log(myModule.__getInt32Array(p3));
 
+    //截取数组
+    let p4 = exports.sliceArray(p2, 0, 2);
+    console.log(myModule.__getInt32Array(p4));
+
     /**
      * Date 对象目前需要先从外部导入
      */

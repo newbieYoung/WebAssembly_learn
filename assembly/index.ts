@@ -37,6 +37,11 @@ export function bubbleSort(arr: i32[], len: i32): i32[] {
   return arr
 }
 
+//截取数组
+export function sliceArray(arr: Array<i32>, start: i32, end: i32): i32[] {
+  return arr.slice(start, end)
+}
+
 /**
  * 要想在 assemblyscript 中使用 javascript 的 Math 需要在编译时指定 --use Math=JSMath；
  * 否则默认是 NativeMath 而 NativeMath 的方法 和 Math 有一些小的差别，比如：NativeMath.random 获取随机数之前需要先执行 NativeMath.seedRandom。
