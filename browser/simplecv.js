@@ -22,16 +22,18 @@ fetch("../build/optimized.wasm")
     let myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
     let exports = module.instance.exports;
 
-    let mat = getCvMat('mat');
-    let pMat = myModule.__retain(myModule.__allocArray(myModule.INT8ARRAY_ID, mat.data)); //数组转换为指针
+    let arr = [];
+    let p1 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
+    let p2 = exports.sliceArray(p1, 0, 0);
+    console.log(myModule.__getInt32Array(p2));
+
     let ker = getCvMat('ker');
-    console.log(ker.data);
-    let kMat = myModule.__retain(myModule.__allocArray(myModule.INT8ARRAY_ID, ker.data));
-    let pConv = exports.convolution(pMat, mat.width, mat.height, kMat, ker.width, ker.height);
+    let mat = getCvMat('mat');
+    let data = ker.data.concat(mat.data);
+    let pData = myModule.__allocArray(myModule.INT32ARRAY_ID, data);
+    let pConv = exports.convolution(pData, ker.width, ker.height, mat.width, mat.height);
     console.log(pConv);
-    console.log(myModule.__getInt32Array(pConv));
-
-
+    console.log(myModule.__getFloat32Array(pConv));
 
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
@@ -50,5 +52,15 @@ function getCvMat(imageId) {
   let ctx = $canvas.getContext('2d');
   ctx.drawImage($img, 0, 0, width, height);
 
-  return ctx.getImageData(0, 0, width, height);
+  let dataImage = ctx.getImageData(0, 0, width, height);
+  let data = [];
+  for (let i = 0; i < dataImage.data.length; i++) {
+    data.push(dataImage.data[i]);
+  }
+
+  return {
+    data: data,
+    width: dataImage.width,
+    height: dataImage.height
+  }
 }
