@@ -43,19 +43,17 @@ fetch("../build/optimized.wasm")
     //字符串读取和传参
     console.log('---');
     let p0 = exports.hello();
-    console.log(p0);
     console.log(myModule.__getString(p0));
 
     let name = 'tencent';
     let ptr = myModule.__allocString(name)
     let p1 = exports.hi(ptr);
-    console.log(p1);
     console.log(myModule.__getString(p1));
 
     //数组读取和传参数
     console.log('---');
     let arr = [7, 2, 4, 3, 9];
-    let p2 = myModule.__retain(myModule.__allocArray(myModule.INT32ARRAY_ID, arr));
+    let p2 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
     let p3 = exports.bubbleSort(p2, arr.length);
     console.log(myModule.__getInt32Array(p3));
 
