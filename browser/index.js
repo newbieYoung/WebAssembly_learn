@@ -47,7 +47,7 @@ fetch("../build/optimized.wasm")
 
     let name = 'tencent';
     let ptr = myModule.__allocString(name)
-    let p1 = exports.hi(ptr);
+    let p1 = exports.hi(ptr); //进行数组操作之前需要执行该方法，进行一次内存数据变换，否则会报错；暂时不清楚具体原因。
     console.log(myModule.__getString(p1));
 
     //数组读取和传参数
