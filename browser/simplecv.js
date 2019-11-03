@@ -22,23 +22,37 @@ fetch("../build/optimized.wasm")
     let myModule = loader.postInstantiate(myImport, module.instance); //改造 assemblyscript default loader 支持浏览器环境
     let exports = module.instance.exports;
 
+    //内存hack操作
     let arr = [];
     let p1 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
     let p2 = exports.sliceArray(p1, 0, 0);
-    console.log(myModule.__getInt32Array(p2));
 
     let ker = getCvMat('ker');
     let mat = getCvMat('mat');
     let data = ker.data.concat(mat.data);
     let pData = myModule.__allocArray(myModule.INT32ARRAY_ID, data);
     let pConv = exports.convolution(pData, ker.width, ker.height, mat.width, mat.height);
-    console.log(pConv);
-    console.log(myModule.__getFloat32Array(pConv));
+    let conv = myModule.__getFloat32Array(pConv);
+    console.log(conv);
 
+    //putCvData(conv, mat.width, mat.height);
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
     console.log(err.stack);
   });
+
+function putCvData(conv, width, height) {
+  let canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  let ctx = canvas.getContext('2d');
+  let imageData = ctx.getImageData(0, 0, width, height);
+  for (let i = 0; i < conv.length; i++) {
+    imageData.data[i] = conv[i];
+  }
+  ctx.putImageData(imageData, 0, 0);
+  document.body.appendChild(canvas);
+}
 
 //解析图片数据至 CvMat 格式
 function getCvMat(imageId) {

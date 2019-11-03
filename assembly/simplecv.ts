@@ -7,6 +7,33 @@ export function sliceArray(arr: Array<i32>, start: i32, end: i32): i32[] {
 }
 
 /**
+ * 膨胀
+ */
+export function dilate(
+  data: Array<i32>,
+  kerRows: i32,
+  kerCols: i32,
+  matRows: i32,
+  matCols: i32
+): f32[] {
+  let len = 4
+  let kerLen = kerRows * kerCols * len
+  let matLen = matRows * matCols * len
+  let matMat = data.slice(kerLen, matLen + kerLen)
+
+  let conv = convolution(data, kerRows, kerCols, matRows, matCols) //卷积
+
+  for (let i = 0; i < conv.length; i++) {
+    if (conv[i] < <f32>matMat[i]) {
+      //取局部最大值
+      conv[i] = <f32>matMat[i]
+    }
+  }
+
+  return conv
+}
+
+/**
  * 卷积
  * data     卷积核+矩阵数据
  * kerRows  卷积核行数
@@ -67,19 +94,16 @@ export function convolution(
       let cs = c - cCol
       let noCur = r * matRows * len + c * matCols
       for (let z = 0; z < len; z++) {
-        let sum: f32 = 0.0
+        let sum: f32 = 0
         if (z == len - 1) {
           //透明通道不参与计算
-          if (noCur + z >= 0 && noCur + z <= matLen - 1) {
-            sum = <f32>matMat[noCur + z]
-          } else {
-            sum = <f32>255
-          }
+          sum = <f32>255
         } else {
           for (let i = 0; i < kerRows; i++) {
             for (let j = 0; j < kerCols; j++) {
               let r1 = rs + i
               let c1 = cs + j
+
               let n1 = r1 * matRows * len + c1 * len
               let v1 = 0 //超出范围使用常量0代替
               if (n1 + z >= 0 && n1 + z <= matLen - 1) {
@@ -88,6 +112,7 @@ export function convolution(
 
               let r2 = kerRows - 1 - i //卷积核旋转180度
               let c2 = kerCols - 1 - j
+
               let n2 = r2 * kerRows + c2 * len
               let v2 = eles[n2 + z]
 
