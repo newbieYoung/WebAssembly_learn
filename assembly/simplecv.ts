@@ -113,7 +113,7 @@ export function convolution(
               let r2 = kerRows - 1 - i //卷积核旋转180度
               let c2 = kerCols - 1 - j
 
-              let n2 = r2 * kerRows + c2 * len
+              let n2 = r2 * kerRows * len + c2 * len
               let v2 = eles[n2 + z]
 
               sum += <f32>v1 * v2
