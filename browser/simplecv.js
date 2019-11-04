@@ -15,7 +15,7 @@ let myImport = {
 }
 loader.preInstantiate(myImport);
 
-fetch("../build/optimized.wasm")
+fetch("../build/simplecv.wasm")
   .then(response => response.arrayBuffer())
   .then(buffer => WebAssembly.instantiate(buffer, myImport))
   .then(module => {
