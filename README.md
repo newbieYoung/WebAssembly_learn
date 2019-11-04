@@ -14,7 +14,9 @@ npm link
 ```
 ├── assemblyscript       //assemblyscript 库
 ├── assembly             //assemblyscript 脚本
+├── build                //asc编译目录
 ├── browser              //浏览器示例
+├── dist                 //webpack打包目录
 ├── nodejs               //nodejs示例
 └── package.json         //npm项目描述文件
 ```
