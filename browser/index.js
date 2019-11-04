@@ -37,9 +37,16 @@ fetch("../build/optimized.wasm")
 
     //简单运算
     console.log('---');
-    console.log(exports.i32Tof32(255));
     console.log(exports.add(1, 2));
     console.log(exports.minus(2, 1));
+
+    //for循环
+    console.log('---');
+    console.log(exports.forLoop(5));
+
+    //类型转换
+    console.log('---');
+    console.log(exports.i32Tof32(255));
 
     //字符串读取和传参
     console.log('---');

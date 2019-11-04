@@ -9,6 +9,20 @@ export function i32Tof32(a: i32): f32 {
   return <f32>a
 }
 
+//for循环
+export function forLoop(times: i32): i32 {
+  let len = 4
+  let no = 0
+  for (let i = 0; i < times; i++) {
+    for (let j = 0; j < times; j++) {
+      for (let z = 0; z < len; z++) {
+        no = i * times * len + j * len
+      }
+    }
+  }
+  return no
+}
+
 export function add(a: i32, b: i32): i32 {
   return a + b
 }
