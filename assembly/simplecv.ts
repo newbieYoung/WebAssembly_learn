@@ -7,6 +7,33 @@ export function sliceArray(arr: Array<i32>, start: i32, end: i32): i32[] {
 }
 
 /**
+ * 腐蚀
+ */
+export function erode(
+  data: Array<i32>,
+  kerRows: i32,
+  kerCols: i32,
+  matRows: i32,
+  matCols: i32
+): f32[] {
+  let len = 4
+  let kerLen = kerRows * kerCols * len
+  let matLen = matRows * matCols * len
+  let matMat = data.slice(kerLen, matLen + kerLen)
+
+  let conv = convolution(data, kerRows, kerCols, matRows, matCols) //卷积
+
+  for (let i = 0; i < conv.length; i++) {
+    if (conv[i] > <f32>matMat[i]) {
+      //取局部最小值
+      conv[i] = <f32>matMat[i]
+    }
+  }
+
+  return conv
+}
+
+/**
  * 膨胀
  */
 export function dilate(

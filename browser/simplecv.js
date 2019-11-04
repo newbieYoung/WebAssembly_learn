@@ -29,17 +29,26 @@ fetch("../build/optimized.wasm")
 
     //膨胀操作
     let ker = getCvMat('ker');
-    let mat = getCvMat('mat');
-    let data = ker.data.concat(mat.data);
+    let img1 = getCvMat('img1');
+    let data1 = ker.data.concat(img1.data);
     let d0 = window.performance.now();
-    let pData = myModule.__allocArray(myModule.INT32ARRAY_ID, data);
-    let pConv = exports.dilate(pData, ker.width, ker.height, mat.width, mat.height);
-    let conv = myModule.__getFloat32Array(pConv);
+    let pData1 = myModule.__allocArray(myModule.INT32ARRAY_ID, data1);
+    let pDilate = exports.dilate(pData1, ker.width, ker.height, img1.width, img1.height);
+    let dilate = myModule.__getFloat32Array(pDilate);
     let d1 = window.performance.now();
     console.log('dilate ' + (d1 - d0) + 'ms');
+    putCvData(dilate, img1.width, img1.height);
 
-
-    putCvData(conv, mat.width, mat.height);
+    //腐蚀操作
+    let img2 = getCvMat('img2');
+    let data2 = ker.data.concat(img2.data);
+    let e0 = window.performance.now();
+    let pData2 = myModule.__allocArray(myModule.INT32ARRAY_ID, data2);
+    let pErode = exports.erode(pData2, ker.width, ker.height, img2.width, img2.height);
+    let erode = myModule.__getFloat32Array(pErode);
+    let e1 = window.performance.now();
+    console.log('erode ' + (e1 - e0) + 'ms');
+    putCvData(erode, img2.width, img2.height);
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
     console.log(err.stack);
