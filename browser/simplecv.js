@@ -31,11 +31,10 @@ fetch("../build/optimized.wasm")
     let mat = getCvMat('mat');
     let data = ker.data.concat(mat.data);
     let pData = myModule.__allocArray(myModule.INT32ARRAY_ID, data);
-    let pConv = exports.convolution(pData, ker.width, ker.height, mat.width, mat.height);
+    let pConv = exports.dilate(pData, ker.width, ker.height, mat.width, mat.height);
     let conv = myModule.__getFloat32Array(pConv);
-    console.log(conv);
 
-    //putCvData(conv, mat.width, mat.height);
+    putCvData(conv, mat.width, mat.height);
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
     console.log(err.stack);
