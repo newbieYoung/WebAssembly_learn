@@ -37,6 +37,7 @@ fetch("../build/optimized.wasm")
 
     //简单运算
     console.log('---');
+    console.log(exports.i32Tof32(255));
     console.log(exports.add(1, 2));
     console.log(exports.minus(2, 1));
 

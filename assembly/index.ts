@@ -4,6 +4,11 @@ NativeMath.seedRandom(Date.now())
 
 export const INT32ARRAY_ID = idof<Int32Array>()
 
+//强制类型转换
+export function i32Tof32(a: i32): f32 {
+  return <f32>a
+}
+
 export function add(a: i32, b: i32): i32 {
   return a + b
 }
