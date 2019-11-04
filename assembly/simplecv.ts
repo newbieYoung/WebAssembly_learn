@@ -92,12 +92,12 @@ export function convolution(
     for (let c = 0; c < matCols; c++) {
       let rs = r - cRow
       let cs = c - cCol
-      let noCur = r * matRows * len + c * matCols
+      let noCur = r * matRows * len + c * len
       for (let z = 0; z < len; z++) {
         let sum: f32 = 0
         if (z == len - 1) {
           //透明通道不参与计算
-          sum = <f32>255
+          sum = <f32>matMat[noCur + z]
         } else {
           for (let i = 0; i < kerRows; i++) {
             for (let j = 0; j < kerCols; j++) {
@@ -125,5 +125,5 @@ export function convolution(
     }
   }
 
-  return result.slice(0, matLen)
+  return result
 }
