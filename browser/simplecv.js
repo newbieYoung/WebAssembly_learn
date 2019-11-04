@@ -27,12 +27,17 @@ fetch("../build/optimized.wasm")
     let p1 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
     let p2 = exports.sliceArray(p1, 0, 0);
 
+    //膨胀操作
     let ker = getCvMat('ker');
     let mat = getCvMat('mat');
     let data = ker.data.concat(mat.data);
+    let d0 = window.performance.now();
     let pData = myModule.__allocArray(myModule.INT32ARRAY_ID, data);
     let pConv = exports.dilate(pData, ker.width, ker.height, mat.width, mat.height);
     let conv = myModule.__getFloat32Array(pConv);
+    let d1 = window.performance.now();
+    console.log('dilate ' + (d1 - d0) + 'ms');
+
 
     putCvData(conv, mat.width, mat.height);
   }).catch(err => {
