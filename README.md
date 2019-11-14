@@ -5,6 +5,8 @@
 ```
 git clone https://github.com/newbieYoung/assemblyscript.git
 cd assemblyscript
+npm run clean
+npm run build
 npm install
 npm link
 ```

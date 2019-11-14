@@ -3650,6 +3650,15 @@
  )
  (func $~lib/array/Array<i32>#__get (; 43 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
+  (local $3 i32)
+  i32.const 4
+  local.set $2
+  local.get $0
+  local.get $0
+  i32.load offset=8
+  local.get $2
+  i32.div_s
+  i32.store offset=12
   local.get $1
   local.get $0
   i32.load offset=12
@@ -3657,7 +3666,7 @@
   if
    i32.const 176
    i32.const 432
-   i32.const 93
+   i32.const 97
    i32.const 41
    call $~lib/builtins/abort
    unreachable
@@ -3665,8 +3674,8 @@
   local.get $0
   local.get $1
   call $~lib/array/Array<i32>#__unchecked_get
-  local.set $2
-  local.get $2
+  local.set $3
+  local.get $3
  )
  (func $~lib/rt/tlsf/reallocateBlock (; 44 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)

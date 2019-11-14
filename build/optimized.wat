@@ -2077,6 +2077,12 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/array/Array<i32>#__get (; 39 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  local.get $0
+  i32.load offset=8
+  i32.const 4
+  i32.div_s
+  i32.store offset=12
   local.get $1
   local.get $0
   i32.load offset=12
@@ -2084,7 +2090,7 @@
   if
    i32.const 176
    i32.const 432
-   i32.const 93
+   i32.const 97
    i32.const 41
    call $~lib/builtins/abort
    unreachable

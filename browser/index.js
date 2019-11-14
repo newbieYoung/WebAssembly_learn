@@ -66,7 +66,7 @@ fetch("../build/optimized.wasm")
 
     //数组读取和传参数
     console.log('---');
-    let len = 100;
+    let len = 3000;
     let arr = [];
     for (let i = 0; i < len; i++) {
       arr.push(parseInt(Math.random() * len));
