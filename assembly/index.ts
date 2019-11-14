@@ -92,3 +92,19 @@ export function fib2(n: i32): i32 {
   }
   return b;
 }
+
+//直接读取内存
+const I32Size = sizeof<i32>();
+export const fibLen = 10;
+export function fib3(): void {
+  for (let n = 0; n <= fibLen; n++) {
+    if (n === 0 || n === 1) {
+      store<i32>(n * I32Size, n);
+    } else {
+      store<i32>(
+        n * I32Size,
+        load<i32>((n - 1) * I32Size) + load<i32>((n - 2) * I32Size)
+      );
+    }
+  }
+}

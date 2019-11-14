@@ -48,6 +48,12 @@ fetch("../build/optimized.wasm")
     console.log('---');
     console.log(exports.i32Tof32(255));
 
+    //直接操作内存
+    console.log('---');
+    exports.fib3();
+    let mem = new Uint32Array(exports.memory.buffer);
+    console.log(Array.from(mem.slice(0, myModule.fibLen + 1)));
+
     //字符串读取和传参
     console.log('---');
     let p0 = exports.hello();
