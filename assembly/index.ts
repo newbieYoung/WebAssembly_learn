@@ -1,6 +1,7 @@
 // The entry file of your WebAssembly module.
 // javascript 并不支持 64位 数据类型，因此在 assemblyscript 中使用 64 位数据类型并没有任何问题，但是在 javascript 中调用时则会报错。
 NativeMath.seedRandom(Date.now());
+const I32Size = sizeof<i32>();
 
 export const INT32ARRAY_ID = idof<Int32Array>(); //获得复杂类型的内存分配相关的唯一ID
 
@@ -37,6 +38,13 @@ export function hello(): string {
 
 export function hi(name: string): string {
   return "hi " + name;
+}
+
+//获取数组长度
+export function getArrLen(arr: i32[]): i32 {
+  //直接使用 length 时会有问题，目前并不清楚确切原因，怀疑是 AssemblyScript bug，可以改为使用字节数除以类型大小的方式间接获取
+  //return arr.length;
+  return arr.byteLength / I32Size;
 }
 
 /**
@@ -94,7 +102,6 @@ export function fib2(n: i32): i32 {
 }
 
 //直接读取内存
-const I32Size = sizeof<i32>();
 export const fibLen = 10;
 export function fib3(): void {
   for (let n = 0; n <= fibLen; n++) {

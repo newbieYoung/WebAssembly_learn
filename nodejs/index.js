@@ -34,11 +34,12 @@ console.log(myModule.__getString(p1));
 
 //数组读取和传参数
 console.log('---');
-let len = 2300;
+let len = 3000;
 let arr = [];
 for (let i = 0; i < len; i++) {
   arr.push(parseInt(Math.random() * len));
 }
 let p2 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
+console.log(myModule.getArrLen(p2));
 let p3 = myModule.bubbleSort(p2, arr.length);
 console.log(myModule.__getInt32Array(p3).length);
