@@ -3,7 +3,7 @@
 ## 环境搭建
 
 ```
-git clone https://github.com/AssemblyScript/assemblyscript.git
+git clone https://github.com/newbieYoung/assemblyscript.git
 cd assemblyscript
 npm install
 npm link
