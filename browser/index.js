@@ -66,7 +66,11 @@ fetch("../build/optimized.wasm")
 
     //数组读取和传参数
     console.log('---');
-    let arr = [7, 2, 4, 3, 9];
+    let len = 100;
+    let arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push(parseInt(Math.random() * len));
+    }
     let p2 = myModule.__allocArray(myModule.INT32ARRAY_ID, arr);
     let p3 = exports.bubbleSort(p2, arr.length);
     console.log(myModule.__getInt32Array(p3));
