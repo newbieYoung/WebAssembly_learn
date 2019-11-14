@@ -41,6 +41,7 @@
  (global $~lib/math/random_state0_32 (mut i32) (i32.const 0))
  (global $~lib/math/random_state1_32 (mut i32) (i32.const 0))
  (global $assembly/index/INT32ARRAY_ID i32 (i32.const 3))
+ (global $assembly/index/fibLen i32 (i32.const 10))
  (global $~lib/rt/__rtti_base i32 (i32.const 568))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -61,6 +62,8 @@
  (export "dateNow" (func $assembly/index/dateNow))
  (export "fib" (func $assembly/index/fib))
  (export "fib2" (func $assembly/index/fib2))
+ (export "fibLen" (global $assembly/index/fibLen))
+ (export "fib3" (func $assembly/index/fib3))
  (start $start)
  (func $~lib/rt/tlsf/removeBlock (; 2 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -2800,12 +2803,60 @@
   end
   local.get $1
  )
- (func $start (; 53 ;) (type $FUNCSIG$v)
+ (func $assembly/index/fib3 (; 53 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  block $break|0
+   loop $loop|0
+    local.get $0
+    i32.const 10
+    i32.gt_s
+    br_if $break|0
+    local.get $0
+    i32.const 1
+    i32.eq
+    i32.const 1
+    local.get $0
+    select
+    if
+     local.get $0
+     i32.const 2
+     i32.shl
+     local.get $0
+     i32.store
+    else
+     local.get $0
+     i32.const 2
+     i32.shl
+     local.get $0
+     i32.const 1
+     i32.sub
+     i32.const 2
+     i32.shl
+     i32.load
+     local.get $0
+     i32.const 2
+     i32.sub
+     i32.const 2
+     i32.shl
+     i32.load
+     i32.add
+     i32.store
+    end
+    local.get $0
+    i32.const 1
+    i32.add
+    local.set $0
+    br $loop|0
+   end
+   unreachable
+  end
+ )
+ (func $start (; 54 ;) (type $FUNCSIG$v)
   call $~lib/bindings/Date/now
   i64.trunc_f64_s
   call $~lib/math/NativeMath.seedRandom
  )
- (func $~lib/rt/pure/__visit (; 54 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 55 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   i32.const 612
   i32.lt_u
@@ -2915,7 +2966,7 @@
    unreachable
   end
  )
- (func $~lib/rt/__visit_members (; 55 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 56 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   block $block$4$break
    block $switch$1$default
     block $switch$1$case$2
@@ -2938,7 +2989,7 @@
    call $~lib/rt/pure/__visit
   end
  )
- (func $null (; 56 ;) (type $FUNCSIG$v)
+ (func $null (; 57 ;) (type $FUNCSIG$v)
   nop
  )
 )
