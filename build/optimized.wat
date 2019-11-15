@@ -26,8 +26,8 @@
  (data (i32.const 352) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00h\00i\00 ")
  (data (i32.const 376) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l")
  (data (i32.const 404) "\01\00\00\00\01")
- (data (i32.const 416) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 464) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
+ (data (i32.const 416) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
+ (data (i32.const 464) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
  (data (i32.const 512) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00P\00R\00N\00G\00 \00m\00u\00s\00t\00 \00b\00e\00 \00s\00e\00e\00d\00e\00d\00.")
  (data (i32.const 568) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\91\04\00\00\02\00\00\00\93\04\00\00\02")
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -2078,24 +2078,6 @@
  )
  (func $~lib/array/Array<i32>#__get (; 39 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
-  local.get $0
-  i32.load offset=8
-  i32.const 4
-  i32.div_s
-  i32.store offset=12
-  local.get $1
-  local.get $0
-  i32.load offset=12
-  i32.ge_u
-  if
-   i32.const 176
-   i32.const 432
-   i32.const 97
-   i32.const 41
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
   i32.load offset=4
   local.get $1
   i32.const 2
@@ -2484,8 +2466,8 @@
    i32.const 268435452
    i32.gt_u
    if
-    i32.const 480
     i32.const 432
+    i32.const 480
     i32.const 14
     i32.const 47
     call $~lib/builtins/abort
