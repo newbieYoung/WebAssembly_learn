@@ -27,8 +27,8 @@
  (data (i32.const 352) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00h\00i\00 \00")
  (data (i32.const 376) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l\00")
  (data (i32.const 400) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 416) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
- (data (i32.const 464) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 416) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 464) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 512) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00P\00R\00N\00G\00 \00m\00u\00s\00t\00 \00b\00e\00 \00s\00e\00e\00d\00e\00d\00.\00")
  (data (i32.const 568) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\91\04\00\00\02\00\00\00\93\04\00\00\02\00\00\00")
  (table $0 1 funcref)
@@ -3398,7 +3398,7 @@
   if
    i32.const 0
    i32.const 272
-   i32.const 1369
+   i32.const 1368
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -3517,7 +3517,7 @@
   (local $7 i32)
   local.get $1
   call $~lib/rt/pure/__retain
-  drop
+  local.set $1
   local.get $1
   i32.const 0
   i32.eq
@@ -3530,7 +3530,7 @@
    if
     local.get $2
     call $~lib/rt/pure/__retain
-    drop
+    local.set $2
     local.get $3
     call $~lib/rt/pure/__release
    end
@@ -3588,10 +3588,10 @@
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   local.get $1
   call $~lib/rt/pure/__retain
-  drop
+  local.set $1
   local.get $0
   i32.const 392
   local.get $0
@@ -3612,7 +3612,7 @@
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   i32.const 368
   local.get $0
   call $~lib/string/String.__concat
@@ -3629,7 +3629,7 @@
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   local.get $0
   i32.load offset=8
   global.get $assembly/index/I32Size
@@ -3639,7 +3639,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/array/Array<i32>#__get (; 42 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<i32>#__unchecked_get (; 42 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -3648,7 +3648,42 @@
   i32.add
   i32.load
  )
- (func $~lib/rt/tlsf/reallocateBlock (; 43 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<i32>#__get (; 43 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   i32.const 4
+   local.set $2
+   local.get $0
+   local.get $0
+   i32.load offset=8
+   local.get $2
+   i32.div_s
+   i32.store offset=12
+   local.get $1
+   local.get $0
+   i32.load offset=12
+   i32.ge_u
+   if
+    i32.const 176
+    i32.const 432
+    i32.const 97
+    i32.const 8
+    call $~lib/builtins/abort
+    unreachable
+   end
+  end
+  local.get $0
+  local.get $1
+  call $~lib/array/Array<i32>#__unchecked_get
+  local.set $3
+  local.get $3
+ )
+ (func $~lib/rt/tlsf/reallocateBlock (; 44 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -3784,7 +3819,7 @@
   call $~lib/rt/tlsf/insertBlock
   local.get $8
  )
- (func $~lib/rt/tlsf/__realloc (; 44 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/__realloc (; 45 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   global.get $~lib/rt/tlsf/ROOT
   i32.eqz
   if
@@ -3824,7 +3859,7 @@
   i32.const 16
   i32.add
  )
- (func $~lib/memory/memory.fill (; 45 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/memory/memory.fill (; 46 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4088,7 +4123,7 @@
    end
   end
  )
- (func $~lib/array/ensureSize (; 46 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/ensureSize (; 47 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4108,8 +4143,8 @@
    i32.shr_u
    i32.gt_u
    if
-    i32.const 432
     i32.const 480
+    i32.const 432
     i32.const 14
     i32.const 47
     call $~lib/builtins/abort
@@ -4151,7 +4186,7 @@
    i32.store offset=8
   end
  )
- (func $~lib/array/Array<i32>#__unchecked_set (; 47 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<i32>#__unchecked_set (; 48 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -4161,36 +4196,47 @@
   local.get $2
   i32.store
  )
- (func $~lib/array/Array<i32>#__set (; 48 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
-  local.get $0
-  local.get $1
-  i32.const 1
-  i32.add
-  i32.const 2
-  call $~lib/array/ensureSize
-  local.get $0
-  local.get $1
-  local.get $2
-  call $~lib/array/Array<i32>#__unchecked_set
+ (func $~lib/array/Array<i32>#__set (; 49 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=12
-  i32.ge_s
+  i32.ge_u
   if
+   local.get $1
+   i32.const 0
+   i32.lt_s
+   if
+    i32.const 176
+    i32.const 432
+    i32.const 115
+    i32.const 21
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   local.get $1
+   i32.const 1
+   i32.add
+   i32.const 2
+   call $~lib/array/ensureSize
    local.get $0
    local.get $1
    i32.const 1
    i32.add
    i32.store offset=12
   end
+  local.get $0
+  local.get $1
+  local.get $2
+  call $~lib/array/Array<i32>#__unchecked_set
  )
- (func $assembly/index/bubbleSort (; 49 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/index/bubbleSort (; 50 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   block $break|0
    i32.const 0
    local.set $2
@@ -4252,7 +4298,7 @@
   end
   local.get $0
  )
- (func $~lib/rt/__allocArray (; 50 ;) (type $FUNCSIG$iiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $~lib/rt/__allocArray (; 51 ;) (type $FUNCSIG$iiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -4290,37 +4336,46 @@
   end
   local.get $4
  )
- (func $~lib/array/Array<i32>#slice (; 51 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<i32>#slice (; 52 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  i32.const 4
+  local.set $3
+  local.get $0
+  local.get $0
+  i32.load offset=8
+  local.get $3
+  i32.div_s
+  i32.store offset=12
   local.get $0
   i32.load offset=12
-  local.set $3
+  local.set $4
   local.get $1
   i32.const 0
   i32.lt_s
   if (result i32)
    local.get $1
-   local.get $3
-   i32.add
-   local.tee $4
-   i32.const 0
-   local.tee $5
    local.get $4
+   i32.add
+   local.tee $5
+   i32.const 0
+   local.tee $6
    local.get $5
+   local.get $6
    i32.gt_s
    select
   else
    local.get $1
-   local.tee $4
-   local.get $3
    local.tee $5
    local.get $4
+   local.tee $6
    local.get $5
+   local.get $6
    i32.lt_s
    select
   end
@@ -4330,22 +4385,22 @@
   i32.lt_s
   if (result i32)
    local.get $2
-   local.get $3
-   i32.add
-   local.tee $4
-   i32.const 0
-   local.tee $5
    local.get $4
+   i32.add
+   local.tee $5
+   i32.const 0
+   local.tee $6
    local.get $5
+   local.get $6
    i32.gt_s
    select
   else
    local.get $2
-   local.tee $4
-   local.get $3
    local.tee $5
    local.get $4
+   local.tee $6
    local.get $5
+   local.get $6
    i32.lt_s
    select
   end
@@ -4353,44 +4408,44 @@
   local.get $2
   local.get $1
   i32.sub
-  local.tee $4
-  i32.const 0
   local.tee $5
-  local.get $4
+  i32.const 0
+  local.tee $6
   local.get $5
+  local.get $6
   i32.gt_s
   select
-  local.set $3
-  local.get $3
+  local.set $4
+  local.get $4
   i32.const 2
   i32.const 4
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
-  local.set $6
-  local.get $6
-  i32.load offset=4
   local.set $7
+  local.get $7
+  i32.load offset=4
+  local.set $8
   local.get $0
   i32.load offset=4
   local.get $1
   i32.const 2
   i32.shl
   i32.add
-  local.set $8
-  local.get $7
+  local.set $9
   local.get $8
-  local.get $3
+  local.get $9
+  local.get $4
   i32.const 2
   i32.shl
   call $~lib/memory/memory.copy
-  local.get $6
+  local.get $7
  )
- (func $assembly/index/sliceArray (; 52 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $assembly/index/sliceArray (; 53 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   local.get $0
   local.get $1
   local.get $2
@@ -4400,7 +4455,7 @@
   call $~lib/rt/pure/__release
   local.get $3
  )
- (func $~lib/math/NativeMath.random (; 53 ;) (type $FUNCSIG$d) (result f64)
+ (func $~lib/math/NativeMath.random (; 54 ;) (type $FUNCSIG$d) (result f64)
   (local $0 i64)
   (local $1 i64)
   (local $2 i64)
@@ -4409,7 +4464,7 @@
   if
    i32.const 528
    i32.const 272
-   i32.const 1376
+   i32.const 1375
    i32.const 24
    call $~lib/builtins/abort
    unreachable
@@ -4455,16 +4510,16 @@
   f64.const 1
   f64.sub
  )
- (func $assembly/index/random (; 54 ;) (type $FUNCSIG$f) (result f32)
+ (func $assembly/index/random (; 55 ;) (type $FUNCSIG$f) (result f32)
   call $~lib/math/NativeMath.random
   f32.demote_f64
  )
- (func $assembly/index/dateNow (; 55 ;) (type $FUNCSIG$i) (result i32)
+ (func $assembly/index/dateNow (; 56 ;) (type $FUNCSIG$i) (result i32)
   call $~lib/bindings/Date/now
   i64.trunc_f64_s
   i32.wrap_i64
  )
- (func $assembly/index/fib (; 56 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/index/fib (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 2
   i32.lt_s
@@ -4482,7 +4537,7 @@
   call $assembly/index/fib
   i32.add
  )
- (func $assembly/index/fib2 (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/index/fib2 (; 58 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -4518,7 +4573,7 @@
   end
   local.get $2
  )
- (func $assembly/index/fib3 (; 58 ;) (type $FUNCSIG$v)
+ (func $assembly/index/fib3 (; 59 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    i32.const 0
@@ -4573,13 +4628,13 @@
    unreachable
   end
  )
- (func $start (; 59 ;) (type $FUNCSIG$v)
+ (func $start (; 60 ;) (type $FUNCSIG$v)
   call $start:assembly/index
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 60 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 61 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 61 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 62 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4709,7 +4764,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 62 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 63 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
@@ -4743,6 +4798,6 @@
   end
   return
  )
- (func $null (; 63 ;) (type $FUNCSIG$v)
+ (func $null (; 64 ;) (type $FUNCSIG$v)
  )
 )

@@ -26,8 +26,8 @@
  (data (i32.const 352) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00h\00i\00 ")
  (data (i32.const 376) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l")
  (data (i32.const 404) "\01\00\00\00\01")
- (data (i32.const 416) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
- (data (i32.const 464) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 416) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 464) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
  (data (i32.const 512) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00P\00R\00N\00G\00 \00m\00u\00s\00t\00 \00b\00e\00 \00s\00e\00e\00d\00e\00d\00.")
  (data (i32.const 568) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\91\04\00\00\02\00\00\00\93\04\00\00\02")
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -1885,7 +1885,7 @@
   if
    i32.const 0
    i32.const 272
-   i32.const 1369
+   i32.const 1368
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1967,7 +1967,6 @@
  )
  (func $assembly/index/hello (; 34 ;) (type $FUNCSIG$i) (result i32)
   i32.const 312
-  call $~lib/rt/pure/__retain
  )
  (func $~lib/string/String#get:length (; 35 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
@@ -1983,17 +1982,13 @@
   (local $3 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
-  local.get $0
+  local.tee $0
   i32.eqz
   if
    local.get $0
    i32.const 392
    i32.ne
    if
-    i32.const 392
-    call $~lib/rt/pure/__retain
-    drop
     local.get $0
     call $~lib/rt/pure/__release
    end
@@ -2004,29 +1999,29 @@
   call $~lib/string/String#get:length
   i32.const 1
   i32.shl
-  local.tee $1
+  local.set $2
+  local.get $2
   local.get $0
   call $~lib/string/String#get:length
   i32.const 1
   i32.shl
   local.tee $3
   i32.add
-  local.tee $2
+  local.tee $1
   i32.eqz
   if
-   i32.const 416
-   call $~lib/rt/pure/__retain
    local.get $0
    call $~lib/rt/pure/__release
+   i32.const 416
    return
   end
-  local.get $2
+  local.get $1
   i32.const 1
   call $~lib/rt/tlsf/__alloc
   call $~lib/rt/pure/__retain
-  local.tee $2
+  local.tee $1
   i32.const 368
-  local.get $1
+  local.get $2
   call $~lib/memory/memory.copy
   local.get $1
   local.get $2
@@ -2036,47 +2031,48 @@
   call $~lib/memory/memory.copy
   local.get $0
   call $~lib/rt/pure/__release
-  local.get $2
+  local.get $1
  )
  (func $assembly/index/hi (; 37 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  i32.const 368
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
   local.get $0
   call $~lib/string/String#concat
-  local.set $1
-  i32.const 368
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
+  local.tee $0
   call $~lib/rt/pure/__retain
-  local.get $1
-  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
  )
  (func $assembly/index/getArrLen (; 38 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
   local.get $0
   i32.load offset=8
   i32.const 4
   i32.div_s
-  local.get $0
-  call $~lib/rt/pure/__release
  )
  (func $~lib/array/Array<i32>#__get (; 39 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   local.get $0
+   local.get $0
+   i32.load offset=8
+   i32.const 4
+   i32.div_s
+   i32.store offset=12
+   local.get $1
+   local.get $0
+   i32.load offset=12
+   i32.ge_u
+   if
+    i32.const 176
+    i32.const 432
+    i32.const 97
+    i32.const 8
+    call $~lib/builtins/abort
+    unreachable
+   end
+  end
   local.get $0
   i32.load offset=4
   local.get $1
@@ -2466,8 +2462,8 @@
    i32.const 268435452
    i32.gt_u
    if
-    i32.const 432
     i32.const 480
+    i32.const 432
     i32.const 14
     i32.const 47
     call $~lib/builtins/abort
@@ -2506,11 +2502,33 @@
   end
  )
  (func $~lib/array/Array<i32>#__set (; 44 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
-  local.get $0
+  (local $3 i32)
   local.get $1
-  i32.const 1
-  i32.add
-  call $~lib/array/ensureSize
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   local.get $1
+   i32.const 0
+   i32.lt_s
+   if
+    i32.const 176
+    i32.const 432
+    i32.const 115
+    i32.const 21
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   local.get $1
+   i32.const 1
+   i32.add
+   local.tee $3
+   call $~lib/array/ensureSize
+   local.get $0
+   local.get $3
+   i32.store offset=12
+  end
   local.get $0
   i32.load offset=4
   local.get $1
@@ -2519,17 +2537,6 @@
   i32.add
   local.get $2
   i32.store
-  local.get $1
-  local.get $0
-  i32.load offset=12
-  i32.ge_s
-  if
-   local.get $0
-   local.get $1
-   i32.const 1
-   i32.add
-   i32.store offset=12
-  end
  )
  (func $assembly/index/bubbleSort (; 45 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -2537,7 +2544,7 @@
   (local $4 i32)
   local.get $0
   call $~lib/rt/pure/__retain
-  drop
+  local.set $0
   loop $loop|0
    block $break|0
     local.get $2
@@ -2624,6 +2631,12 @@
  (func $~lib/array/Array<i32>#slice (; 47 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   local.get $0
+  local.get $0
+  i32.load offset=8
+  i32.const 4
+  i32.div_s
+  i32.store offset=12
+  local.get $0
   i32.load offset=12
   local.set $3
   local.get $1
@@ -2696,14 +2709,9 @@
  )
  (func $assembly/index/sliceArray (; 48 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $0
   local.get $1
   local.get $2
   call $~lib/array/Array<i32>#slice
-  local.get $0
-  call $~lib/rt/pure/__release
  )
  (func $~lib/math/NativeMath.random (; 49 ;) (type $FUNCSIG$d) (result f64)
   (local $0 i64)
@@ -2713,7 +2721,7 @@
   if
    i32.const 528
    i32.const 272
-   i32.const 1376
+   i32.const 1375
    i32.const 24
    call $~lib/builtins/abort
    unreachable
