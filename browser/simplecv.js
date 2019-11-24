@@ -70,7 +70,7 @@ fetch("../build/simplecv.wasm")
     let pRelievo = exports.convolution(pData3, 3, 3, img3.height, img3.width);
     let relievo = myModule.__getFloat32Array(pRelievo);
     let r1 = window.performance.now();
-    console.log('erode ' + (r1 - r0) + 'ms');
+    console.log('relievo ' + (r1 - r0) + 'ms');
     putCvData(relievo, img3.width, img3.height);
   }).catch(err => {
     // 在浏览器环境中错误信息较为简略，很难排查问题，建议在 Node 环境中调试。
