@@ -49,6 +49,29 @@ fetch("../build/simplecv.wasm")
     let e1 = window.performance.now();
     console.log('erode ' + (e1 - e0) + 'ms');
     putCvData(erode, img2.width, img2.height);
+
+    /**
+     * 浮雕
+     * [
+     * -2,-1,0,
+     * -1,1,1,
+     * 0,1,2
+     * ]
+     */
+    let kerRelievo = [
+      -2, -2, -2, 255, -1, -1, -1, 255, 0, 0, 0, 255,
+      -1, -1, -1, 255, 1, 1, 1, 255, 1, 1, 1, 255,
+      0, 0, 0, 255, 1, 1, 1, 255, 2, 2, 2, 255
+    ]
+    let img3 = getCvMat('img3');
+    let data3 = kerRelievo.concat(img3.data);
+    let r0 = window.performance.now();
+    let pData3 = myModule.__allocArray(myModule.INT32ARRAY_ID, data3);
+    let pRelievo = exports.convolution(pData3, 3, 3, img3.width, img3.height);
+    let relievo = myModule.__getFloat32Array(pRelievo);
+    let r1 = window.performance.now();
+    console.log('erode ' + (r1 - r0) + 'ms');
+    putCvData(relievo, img3.width, img3.height);
   }).catch(err => {
     alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
     console.log(err.stack);
