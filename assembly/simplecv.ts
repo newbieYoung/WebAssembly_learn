@@ -114,7 +114,7 @@ export function convolution(
   // trace("kerMat", 1, eles.length); // trace 函数 类似于 console.log 可以用于输出调试
 
   //卷积核中心
-  let cRow = (kerRows - 1) / 2; //卷积核中心
+  let cRow = (kerRows - 1) / 2;
   let cCol = (kerCols - 1) / 2;
 
   //卷积计算
