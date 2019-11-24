@@ -33,7 +33,7 @@ fetch("../build/simplecv.wasm")
     let data1 = ker.data.concat(img1.data);
     let d0 = window.performance.now();
     let pData1 = myModule.__allocArray(myModule.INT32ARRAY_ID, data1);
-    let pDilate = exports.dilate(pData1, ker.width, ker.height, img1.width, img1.height);
+    let pDilate = exports.dilate(pData1, ker.height, ker.width, img1.height, img1.width);
     let dilate = myModule.__getFloat32Array(pDilate);
     let d1 = window.performance.now();
     console.log('dilate ' + (d1 - d0) + 'ms');
@@ -44,7 +44,7 @@ fetch("../build/simplecv.wasm")
     let data2 = ker.data.concat(img2.data);
     let e0 = window.performance.now();
     let pData2 = myModule.__allocArray(myModule.INT32ARRAY_ID, data2);
-    let pErode = exports.erode(pData2, ker.width, ker.height, img2.width, img2.height);
+    let pErode = exports.erode(pData2, ker.height, ker.width, img2.height, img2.width);
     let erode = myModule.__getFloat32Array(pErode);
     let e1 = window.performance.now();
     console.log('erode ' + (e1 - e0) + 'ms');
@@ -67,7 +67,7 @@ fetch("../build/simplecv.wasm")
     let data3 = kerRelievo.concat(img3.data);
     let r0 = window.performance.now();
     let pData3 = myModule.__allocArray(myModule.INT32ARRAY_ID, data3);
-    let pRelievo = exports.convolution(pData3, 3, 3, img3.width, img3.height);
+    let pRelievo = exports.convolution(pData3, 3, 3, img3.height, img3.width);
     let relievo = myModule.__getFloat32Array(pRelievo);
     let r1 = window.performance.now();
     console.log('erode ' + (r1 - r0) + 'ms');

@@ -67,6 +67,8 @@ export function dilate(
  * kerCols  卷积核列数
  * matRows  矩阵行数
  * matCols  矩阵列数
+ * ----
+ * 对于图片来说行数即高度、列数即宽度
  */
 export function convolution(
   data: Array<i32>,
@@ -94,7 +96,7 @@ export function convolution(
   for (let z = 0; z < len; z++) {
     for (let i = 0; i < kerRows; i++) {
       for (let j = 0; j < kerCols; j++) {
-        let no = i * kerRows * len + j * len;
+        let no = (i * kerCols  + j) * len;
         sums[z] += <f32>kerMat[no + z];
         eles[no + z] = <f32>kerMat[no + z];
       }
@@ -103,7 +105,7 @@ export function convolution(
   for (let z = 0; z < len; z++) {
     for (let i = 0; i < kerRows; i++) {
       for (let j = 0; j < kerCols; j++) {
-        let no = i * kerRows * len + j * len;
+        let no = (i * kerCols  + j) * len;
         eles[no + z] = eles[no + z] / sums[z];
       }
     }
@@ -121,7 +123,7 @@ export function convolution(
     for (let c = 0; c < matCols; c++) {
       let rs = r - cRow;
       let cs = c - cCol;
-      let noCur = r * matRows * len + c * len;
+      let noCur = (r * matCols + c) * len;
       for (let z = 0; z < len; z++) {
         let sum: f32 = 0;
         if (z == len - 1) {
@@ -133,7 +135,7 @@ export function convolution(
               let r1 = rs + i;
               let c1 = cs + j;
 
-              let n1 = r1 * matRows * len + c1 * len;
+              let n1 = (r1 * matCols + c1) * len;
               let v1 = 0; //超出范围使用常量0代替
               if (n1 + z >= 0 && n1 + z <= matLen - 1) {
                 v1 = matMat[n1 + z];
@@ -142,7 +144,7 @@ export function convolution(
               let r2 = kerRows - 1 - i; //卷积核旋转180度
               let c2 = kerCols - 1 - j;
 
-              let n2 = r2 * kerRows * len + c2 * len;
+              let n2 = (r2 * kerCols + c2) * len;
               let v2 = eles[n2 + z];
 
               sum += <f32>v1 * v2;

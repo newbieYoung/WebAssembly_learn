@@ -23,5 +23,8 @@
   "devDependencies": {
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "get-pixels": "^3.3.2"
   }
 }
