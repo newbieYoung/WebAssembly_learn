@@ -8,8 +8,8 @@ let myImport = {
     memory: new WebAssembly.Memory({
       initial: 256
     }),
-    abort: function () {
-      throw Error("abort called");
+    abort: function (err) {
+      throw Error(err);
     }
   }
 }
@@ -73,8 +73,8 @@ fetch("../build/simplecv.wasm")
     console.log('erode ' + (r1 - r0) + 'ms');
     putCvData(relievo, img3.width, img3.height);
   }).catch(err => {
-    alert("Failed to load WASM: " + err.message + " (ad blocker, maybe?)");
-    console.log(err.stack);
+    // 在浏览器环境中错误信息较为简略，很难排查问题，建议在 Node 环境中调试。
+    console.log(err);
   });
 
 function putCvData(conv, width, height) {
